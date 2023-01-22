@@ -48,8 +48,15 @@ export class Notification {
     return this.props.category;
   }
 
-  public set readAt(readAt: Date | null | undefined) {
-    this.props.readAt = readAt;
+  public read() {
+    this.props.readAt = new Date();
+  }
+
+  public unread() {
+    if (this.props.readAt === undefined) {
+      throw new Error('Cannot unread a notification who was not read yet');
+    }
+    this.props.readAt = null;
   }
 
   public get readAt(): Date | null | undefined {
